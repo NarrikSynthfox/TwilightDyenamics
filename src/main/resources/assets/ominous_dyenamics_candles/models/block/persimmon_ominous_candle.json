@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:builtin/entity",
+  "textures": {
+    "particle": "dyenamics:block/persimmon_candle_lit"
+  }
+}
