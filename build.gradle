@@ -140,7 +140,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     implementation "curse.maven:dyenamics-509276:6504540"
-    implementation "team-twilight:twilightforest:4.8.3287:universal"
+    implementation "team-twilight:twilightforest:4.8.3311:universal"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
