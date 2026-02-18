@@ -39,8 +39,8 @@ public class DyenamicsSkullCandleItem extends StandingAndWallBlockItem implement
 			if (tag.contains("CandleColor") && tag.contains("CandleAmount")) {
 				tooltip.add(
 					Component.translatable(tag.getInt("CandleAmount") > 1 ?
-								"item.twilightforest.skull_candle.desc.multiple" :
-								"item.twilightforest.skull_candle.desc",
+								"item.twilight_dyenamics.skull_candle.desc.multiple" :
+								"item.twilight_dyenamics.skull_candle.desc",
 							String.valueOf(tag.getInt("CandleAmount")),
 							WordUtils.capitalize(DyenamicDyeColor.byId(tag.getInt("CandleColor")).getSerializedName()
 								.replace("\"", "").replace("_", " ")))
@@ -74,4 +74,5 @@ public class DyenamicsSkullCandleItem extends StandingAndWallBlockItem implement
 			resolvableprofile.resolve().thenAcceptAsync(profile -> stack.set(DataComponents.PROFILE, profile), SkullBlockEntity.CHECKED_MAIN_THREAD_EXECUTOR);
 		}
 	}
+	
 }

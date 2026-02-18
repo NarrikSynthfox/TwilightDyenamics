@@ -13,7 +13,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.Level;
@@ -97,7 +96,7 @@ public class DyenamicsEntityEvents {
 		level.setBlockEntity(new DyenamicsSkullCandleBlockEntity(event.getPos(),
 			newBlock.withPropertiesOf(level.getBlockState(event.getPos()))
 				.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE),
-				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(event.getItemStack().getItem()).getId()));
+				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(event.getItemStack().getItem()).getSerializedName()));
 		if (level.getBlockEntity(event.getPos()) instanceof DyenamicsSkullCandleBlockEntity sc) sc.setOwner(profile);
 	}
 }

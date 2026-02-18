@@ -5,6 +5,8 @@ package com.narsyn.twilightdyenamics.block;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
+import com.narsyn.twilightdyenamics.components.DyenamicsSkullCandles;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -23,8 +25,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import twilightforest.components.item.SkullCandles;
-import twilightforest.init.TFDataComponents;
 
 import java.util.List;
 
@@ -92,7 +92,7 @@ public class DyenamicsSkullCandleBlock extends DyenamicsAbstractSkullCandleBlock
 		return this.defaultBlockState()
 			.setValue(ROTATION, Mth.floor((double) (ctx.getRotation() * 16.0F / 360.0F) + 0.5D) & 15)
 			.setValue(LIGHTING, Lighting.NONE)
-			.setValue(CANDLES, ctx.getItemInHand().getOrDefault(TFDataComponents.SKULL_CANDLES, SkullCandles.DEFAULT).count());
+			.setValue(CANDLES, ctx.getItemInHand().getOrDefault(TwilightDyenamicsMain.SKULL_CANDLES, DyenamicsSkullCandles.DEFAULT).count());
 	}
 
 	@Override

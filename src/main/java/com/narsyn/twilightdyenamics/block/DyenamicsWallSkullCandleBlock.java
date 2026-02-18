@@ -7,6 +7,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
+import com.narsyn.twilightdyenamics.components.DyenamicsSkullCandles;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -25,8 +27,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import twilightforest.components.item.SkullCandles;
-import twilightforest.init.TFDataComponents;
 
 import java.util.List;
 import java.util.Map;
@@ -93,7 +93,7 @@ public class DyenamicsWallSkullCandleBlock extends DyenamicsAbstractSkullCandleB
 				Direction var10 = dir.getOpposite();
 				state = state.setValue(FACING, var10);
 				if (!getter.getBlockState(pos.relative(dir)).canBeReplaced(ctx)) {
-					return state.setValue(LIGHTING, Lighting.NONE).setValue(CANDLES, ctx.getItemInHand().getOrDefault(TFDataComponents.SKULL_CANDLES, SkullCandles.DEFAULT).count());
+					return state.setValue(LIGHTING, Lighting.NONE).setValue(CANDLES, ctx.getItemInHand().getOrDefault(TwilightDyenamicsMain.SKULL_CANDLES, DyenamicsSkullCandles.DEFAULT).count());
 				}
 			}
 		}

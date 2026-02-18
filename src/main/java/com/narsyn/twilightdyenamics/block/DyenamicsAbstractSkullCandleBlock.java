@@ -3,19 +3,17 @@ package com.narsyn.twilightdyenamics.block;
 //Copied from AbstractSkullCandleBlock from Twilight Forest, tweaked for Dyenamics candles support.
 
 import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
+import com.narsyn.twilightdyenamics.components.DyenamicsSkullCandles;
 import com.narsyn.twilightdyenamics.entity.DyenamicsSkullCandleBlockEntity;
 import cy.jdkdigital.dyenamics.core.init.BlockInit;
 import cy.jdkdigital.dyenamics.core.util.DyenamicDyeColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -48,8 +46,6 @@ import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.block.LightableBlock;
-import twilightforest.components.item.SkullCandles;
-import twilightforest.init.TFDataComponents;
 
 import java.util.*;
 
@@ -89,7 +85,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new DyenamicsSkullCandleBlockEntity(pos, state, 0);
+		return new DyenamicsSkullCandleBlockEntity(pos, state, "peach");
 	}
 
 	//input one of the enum names to convert it into a candle block
@@ -114,7 +110,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 		super.setPlacedBy(level, pos, state, placer, stack);
 		BlockEntity blockentity = level.getBlockEntity(pos);
 		if (blockentity instanceof DyenamicsSkullCandleBlockEntity sc) {
-			SkullCandles skullCandles = stack.getOrDefault(TFDataComponents.SKULL_CANDLES, SkullCandles.DEFAULT);
+			DyenamicsSkullCandles skullCandles = stack.getOrDefault(TwilightDyenamicsMain.SKULL_CANDLES, DyenamicsSkullCandles.DEFAULT);
 			sc.setCandleColor(skullCandles.color());
 
 			if (this.type == SkullBlock.Types.PLAYER && stack.has(DataComponents.PROFILE)) {
@@ -133,7 +129,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 				if (!builder.getParameter(LootContextParams.TOOL).isEmpty() && builder.getParameter(LootContextParams.TOOL).getEnchantmentLevel(sc.getLevel().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.SILK_TOUCH)) > 0) {
 					ItemStack newStack = new ItemStack(this);
 
-					newStack.set(TFDataComponents.SKULL_CANDLES, new SkullCandles(sc.getCandleColor(), state.getValue(CANDLES)));
+					newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES)));
 
 					if (this.type == SkullBlock.Types.PLAYER && sc.getOwnerProfile() != null)
 						newStack.set(DataComponents.PROFILE, sc.getOwnerProfile());
@@ -141,7 +137,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 					drops.remove(skullStack.get());
 					drops.add(newStack);
 				} else {
-					drops.add(new ItemStack(candleColorToCandle(DyenamicDyeColor.byId(sc.getCandleColor())), state.getValue(CANDLES)));
+					drops.add(new ItemStack(candleColorToCandle(DyenamicDyeColor.valueOf(sc.getCandleColor().toUpperCase(Locale.ROOT))), state.getValue(CANDLES)));
 				}
 			}
 		}
@@ -154,7 +150,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 		ItemStack newStack = new ItemStack(this);
 		TwilightDyenamicsMain.LOGGER.info("ItemStack is "+newStack);
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) {
-			newStack.set(TFDataComponents.SKULL_CANDLES, new SkullCandles(sc.getCandleColor(), state.getValue(CANDLES)));
+			newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES)));
 
 			if (this.type == SkullBlock.Types.PLAYER && sc.getOwnerProfile() != null)
 				newStack.set(DataComponents.PROFILE, sc.getOwnerProfile());
@@ -167,7 +163,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) {
 			if (stack.is(ItemTags.CANDLES)
-				&& stack.is(candleColorToCandle(DyenamicDyeColor.byId(sc.getCandleColor())).asItem())
+				&& stack.is(candleColorToCandle(DyenamicDyeColor.valueOf(sc.getCandleColor().toUpperCase())).asItem())
 				&& !player.isShiftKeyDown()) {
 				int candles = state.getValue(CANDLES);
 				if (candles < 4) {
@@ -207,7 +203,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 			}
 			level.playSound(null, pos, SoundEvents.CANDLE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.getLightEngine().checkBlock(pos);
-			ItemStack candle = new ItemStack(candleColorToCandle(DyenamicDyeColor.byId(sc.getCandleColor())));
+			ItemStack candle = new ItemStack(candleColorToCandle(DyenamicDyeColor.valueOf(sc.getCandleColor().toUpperCase(Locale.ROOT))));
 			if (player.hasInfiniteMaterials()) {
 				if (!player.getInventory().contains(candle)) {
 					player.getInventory().add(candle);

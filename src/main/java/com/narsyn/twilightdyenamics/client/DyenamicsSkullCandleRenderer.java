@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.block.LightableBlock;
 
+import java.util.Locale;
 import java.util.Map;
 
 //[VanillaCopy] of SkullBlockRenderer, but render a candle or candles on top of the skull/head
@@ -86,7 +87,7 @@ public class DyenamicsSkullCandleRenderer<T extends DyenamicsSkullCandleBlockEnt
 			stack.translate(0.0F, 0.45F, 0.0F);
 		}
 		Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
-				DyenamicsAbstractSkullCandleBlock.candleColorToCandle(DyenamicDyeColor.byId(entity.getCandleColor()))
+				DyenamicsAbstractSkullCandleBlock.candleColorToCandle(DyenamicDyeColor.valueOf(entity.getCandleColor().toUpperCase(Locale.ROOT)))
 				.defaultBlockState()
 				.setValue(CandleBlock.CANDLES, Math.max(1, state.getValue(BlockStateProperties.CANDLES)))
 				.setValue(CandleBlock.LIT, state.getValue(DyenamicsAbstractSkullCandleBlock.LIGHTING) != LightableBlock.Lighting.NONE), stack, buffer, light, overlay);

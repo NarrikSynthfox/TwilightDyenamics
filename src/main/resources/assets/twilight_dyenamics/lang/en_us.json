@@ -1,5 +1,18 @@
 {
-  "twilight_dyenamics.configuration.title": "Twilight Dyenamics Configs",
-  "twilight_dyenamics.configuration.section.twilight_dyenamics.common.toml": "Twilight Dyenamics Configs",
-  "twilight_dyenamics.configuration.section.twilight_dyenamics.common.toml.title": "Twilight Dyenamics Configs"
+  "block.twilight_dyenamics.creeper_skull_candle": "Creeper Skull Candle",
+  "block.twilight_dyenamics.creeper_wall_skull_candle": "Creeper Wall Skull Candle",
+  "block.twilight_dyenamics.piglin_skull_candle": "Piglin Skull Candle",
+  "block.twilight_dyenamics.piglin_wall_skull_candle": "Piglin Wall Skull Candle",
+  "block.twilight_dyenamics.player_skull_candle": "Player Skull Candle",
+  "block.twilight_dyenamics.player_skull_candle.named": "%s's Head with Candles",
+  "block.twilight_dyenamics.player_wall_skull_candle": "Player Wall Skull Candle",
+  "block.twilight_dyenamics.skeleton_skull_candle": "Skeleton Skull Candle",
+  "block.twilight_dyenamics.skeleton_wall_skull_candle": "Skeleton Wall Skull Candle",
+  "block.twilight_dyenamics.wither_skeleton_skull_candle": "Wither Skeleton Skull Candle",
+  "block.twilight_dyenamics.wither_skeleton_wall_skull_candle": "Wither Skeleton Wall Skull Candle",
+  "block.twilight_dyenamics.zombie_skull_candle": "Zombie Skull Candle",
+  "block.twilight_dyenamics.zombie_wall_skull_candle": "Zombie Wall Skull Candle",
+  "item.twilight_dyenamics.skull_candle.desc": "Has: %s %s Candle",
+  "item.twilight_dyenamics.skull_candle.desc.multiple": "Has: %s %s Candles",
+  "itemGroup.twilight_dyenamics.twilight_dyenamics":"Twilight Dyenamics"
 }

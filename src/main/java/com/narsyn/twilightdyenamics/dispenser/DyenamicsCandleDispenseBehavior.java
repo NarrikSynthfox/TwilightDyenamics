@@ -27,6 +27,8 @@ import twilightforest.block.CandelabraBlock;
 import twilightforest.block.LightableBlock;
 import twilightforest.block.entity.CandelabraBlockEntity;
 
+import java.util.Locale;
+
 public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavior {
 
 	public DyenamicsCandleDispenseBehavior() {
@@ -48,7 +50,7 @@ public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavio
 
 	private static boolean tryAddCandle(ServerLevel level, BlockPos pos, Item candle) {
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) {
-			if (candle == DyenamicsAbstractSkullCandleBlock.candleColorToCandle(DyenamicDyeColor.byId(sc.getCandleColor())).asItem()) {
+			if (candle == DyenamicsAbstractSkullCandleBlock.candleColorToCandle(DyenamicDyeColor.valueOf(sc.getCandleColor().toUpperCase(Locale.ROOT))).asItem()) {
 				BlockState state = level.getBlockState(pos);
 				int candles = state.getValue(BlockStateProperties.CANDLES);
 				if (candles < 4) {
@@ -125,7 +127,7 @@ public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavio
 			newBlock.defaultBlockState()
 				.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE)
 				.setValue(DyenamicsSkullCandleBlock.ROTATION, level.getBlockState(pos).getValue(SkullBlock.ROTATION)),
-				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getId()));
+				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getSerializedName()));
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) sc.setOwner(profile);
 	}
 
@@ -139,7 +141,7 @@ public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavio
 			newBlock.defaultBlockState()
 				.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE)
 				.setValue(DyenamicsWallSkullCandleBlock.FACING, level.getBlockState(pos).getValue(WallSkullBlock.FACING)),
-				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getId()));
+				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getSerializedName()));
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) sc.setOwner(profile);
 	}
 }

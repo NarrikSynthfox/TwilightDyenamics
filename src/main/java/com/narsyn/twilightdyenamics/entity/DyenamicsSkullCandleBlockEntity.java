@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class DyenamicsSkullCandleBlockEntity extends SkullBlockEntity {
 
-	private int candleColor;
+	private String candleColor;
 
 	private int animationTickCount;
 	private boolean isAnimating;
@@ -22,7 +22,7 @@ public class DyenamicsSkullCandleBlockEntity extends SkullBlockEntity {
 		super(pos, state);
 	}
 
-	public DyenamicsSkullCandleBlockEntity(BlockPos pos, BlockState state, int color) {
+	public DyenamicsSkullCandleBlockEntity(BlockPos pos, BlockState state, String color) {
 		super(pos, state);
 		this.candleColor = color;
 	}
@@ -50,27 +50,27 @@ public class DyenamicsSkullCandleBlockEntity extends SkullBlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
-		tag.putInt("CandleColor", this.candleColor);
+		tag.putString("CandleColor", this.candleColor);
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
 		super.loadAdditional(tag, provider);
-		this.candleColor = tag.getInt("CandleColor");
+		this.candleColor = tag.getString("CandleColor");
 	}
 
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
 		CompoundTag tag = super.getUpdateTag(provider);
-		tag.putInt("CandleColor", this.candleColor);
+		tag.putString("CandleColor", this.candleColor);
 		return tag;
 	}
 
-	public int getCandleColor() {
+	public String getCandleColor() {
 		return this.candleColor;
 	}
 
-	public void setCandleColor(int color) {
+	public void setCandleColor(String color) {
 		this.candleColor = color;
 		this.setChanged();
 		this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
