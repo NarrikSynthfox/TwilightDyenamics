@@ -40,7 +40,6 @@ public class DyenamicsEntityEvents {
 		BlockPos pos = event.getPos();
 		BlockState state = level.getBlockState(pos);
 		if (!TFConfig.disableSkullCandles) {
-			TwilightDyenamicsMain.LOGGER.info("Trying to make skull candle with "+stack.getItem());
 			if (stack.getItem().toString().startsWith("dyenamics:") && stack.getItem().toString().endsWith("candle") && !event.getEntity().isShiftKeyDown()) {
 				if (state.getBlock() instanceof AbstractSkullBlock skull && BuiltInRegistries.BLOCK.getKey(state.getBlock()).getNamespace().equals("minecraft")) {
 					SkullBlock.Types type = (SkullBlock.Types) skull.getType();
