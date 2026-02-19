@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -51,12 +53,13 @@ import java.util.*;
 
 public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock implements LightableBlock {
 	public static final IntegerProperty CANDLES = BlockStateProperties.CANDLES;
+	public static final EnumProperty<GlowingColors> GLOWCOLOR = EnumProperty.create("glow_color",GlowingColors.class);
 	private final SkullBlock.Type type;
 
 	public DyenamicsAbstractSkullCandleBlock(SkullBlock.Type type, Properties properties) {
 		super(properties);
 		this.type = type;
-		this.registerDefaultState(this.getStateDefinition().any().setValue(LIGHTING, Lighting.NONE).setValue(CANDLES, 1));
+		this.registerDefaultState(this.getStateDefinition().any().setValue(LIGHTING, Lighting.NONE).setValue(CANDLES, 1).setValue(GLOWCOLOR, GlowingColors.NONE));
 	}
 
 	public SkullBlock.Type getType() {
@@ -65,12 +68,18 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 
 	@Override
 	public int getLightEmission(BlockState state, BlockGetter getter, BlockPos pos) {
-		return switch (state.getValue(LIGHTING)) {
+		int candleLight = switch (state.getValue(LIGHTING)) {
 			case NORMAL -> 3 * state.getValue(CANDLES);
 			case OMINOUS -> 2 * state.getValue(CANDLES);
 			case DIM -> state.getValue(CANDLES);
 			default -> 0;
 		};
+		int colorLight = switch(state.getValue(GLOWCOLOR)){
+			case CHERENKOV -> DyenamicDyeColor.CHERENKOV.getLightValue();
+			case FLUORESCENT -> DyenamicDyeColor.FLUORESCENT.getLightValue();
+			default -> 0;
+		};
+		return Math.max(candleLight,colorLight);
 	}
 
 	@Override
@@ -129,7 +138,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 				if (!builder.getParameter(LootContextParams.TOOL).isEmpty() && builder.getParameter(LootContextParams.TOOL).getEnchantmentLevel(sc.getLevel().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.SILK_TOUCH)) > 0) {
 					ItemStack newStack = new ItemStack(this);
 
-					newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES)));
+					newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES),getColorOrdinal(sc.getCandleColor())));
 
 					if (this.type == SkullBlock.Types.PLAYER && sc.getOwnerProfile() != null)
 						newStack.set(DataComponents.PROFILE, sc.getOwnerProfile());
@@ -150,7 +159,7 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 		ItemStack newStack = new ItemStack(this);
 		TwilightDyenamicsMain.LOGGER.info("ItemStack is "+newStack);
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) {
-			newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES)));
+			newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES),getColorOrdinal(sc.getCandleColor())));
 
 			if (this.type == SkullBlock.Types.PLAYER && sc.getOwnerProfile() != null)
 				newStack.set(DataComponents.PROFILE, sc.getOwnerProfile());
@@ -268,11 +277,30 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(LIGHTING, CANDLES);
+		builder.add(LIGHTING, CANDLES, GLOWCOLOR);
 	}
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, TwilightDyenamicsMain.SKULL_CANDLE_ENTITY.get(), DyenamicsSkullCandleBlockEntity::tick);
+	}
+
+	public static int getColorOrdinal(String colorName) {
+		switch(colorName){
+			case "cherenkov": return 1;
+			case "fluorescent": return 2;
+			default: return 0;
+		}
+	}
+	public enum GlowingColors implements StringRepresentable {
+		NONE,
+		CHERENKOV,
+		FLUORESCENT;
+
+		@Override
+		public String getSerializedName() {
+			return this.toString().toLowerCase(Locale.ROOT);
+		}
+
 	}
 }

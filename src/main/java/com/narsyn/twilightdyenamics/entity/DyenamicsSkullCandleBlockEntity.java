@@ -3,6 +3,7 @@ package com.narsyn.twilightdyenamics.entity;
 //Copied from SkullCandleBlockEntity from Twilight Forest, tweaked for Dyenamics candles support.
 
 import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
+import cy.jdkdigital.dyenamics.core.util.DyenamicDyeColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -10,6 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Locale;
 
 public class DyenamicsSkullCandleBlockEntity extends SkullBlockEntity {
 
@@ -67,11 +70,21 @@ public class DyenamicsSkullCandleBlockEntity extends SkullBlockEntity {
 	}
 
 	public String getCandleColor() {
-		return this.candleColor;
+		try{
+			DyenamicDyeColor color = DyenamicDyeColor.valueOf(this.candleColor.toUpperCase(Locale.ROOT));
+			return color.getId() < 16 ? "peach": this.candleColor;
+		}catch(IllegalArgumentException e){
+			return "peach";
+		}
 	}
 
-	public void setCandleColor(String color) {
-		this.candleColor = color;
+	public void setCandleColor(String colorString) {
+		try{
+			DyenamicDyeColor color = DyenamicDyeColor.valueOf(this.candleColor.toUpperCase(Locale.ROOT));
+			this.candleColor = color.getId() < 16 ? "peach": colorString;
+		}catch(IllegalArgumentException e){
+			this.candleColor = "peach";
+		}
 		this.setChanged();
 		this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
 	}

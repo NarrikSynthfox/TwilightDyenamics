@@ -93,7 +93,7 @@ public class DyenamicsWallSkullCandleBlock extends DyenamicsAbstractSkullCandleB
 				Direction var10 = dir.getOpposite();
 				state = state.setValue(FACING, var10);
 				if (!getter.getBlockState(pos.relative(dir)).canBeReplaced(ctx)) {
-					return state.setValue(LIGHTING, Lighting.NONE).setValue(CANDLES, ctx.getItemInHand().getOrDefault(TwilightDyenamicsMain.SKULL_CANDLES, DyenamicsSkullCandles.DEFAULT).count());
+					return state.setValue(LIGHTING, Lighting.NONE).setValue(CANDLES, ctx.getItemInHand().getOrDefault(TwilightDyenamicsMain.SKULL_CANDLES, DyenamicsSkullCandles.DEFAULT).count()).setValue(GLOWCOLOR,GlowingColors.values()[ctx.getItemInHand().getOrDefault(TwilightDyenamicsMain.SKULL_CANDLES, DyenamicsSkullCandles.DEFAULT).glowType()]);
 				}
 			}
 		}

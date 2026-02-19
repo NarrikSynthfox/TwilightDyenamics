@@ -91,7 +91,7 @@ public class TwilightDyenamicsMain {
 
     private static ItemStack create_tab_stack(){
         ItemStack stack=new ItemStack(PLAYER_SKULL_CANDLE_ITEM.get());
-        stack.set(SKULL_CANDLES,new DyenamicsSkullCandles("lavender",1));
+        stack.set(SKULL_CANDLES,new DyenamicsSkullCandles("lavender",1,0));
         PropertyMap properties = new PropertyMap();
         properties.put("textures", new Property("textures", "ewogICJ0aW1lc3RhbXAiIDogMTc3MTQyNjM3NTY0MywKICAicHJvZmlsZUlkIiA6ICJkYmQyNjczODcxOGI0ZWI1OTI5MTMyMDU4YjY4MmJiMSIsCiAgInByb2ZpbGVOYW1lIiA6ICJOYXJyaWtfU3ludGhmb3giLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJlZTFkNWNiY2NjZDY2Yjg2MWQxY2I5NjliZTBmYjE0ZjUxMTEyYmQ3NTI4YmQyNmE5YzA0YzllZTQzMTcxIgogICAgfQogIH0KfQ=="));
         stack.set(DataComponents.PROFILE,new ResolvableProfile(Optional.of(""), Optional.of(UUID.randomUUID()),properties));
