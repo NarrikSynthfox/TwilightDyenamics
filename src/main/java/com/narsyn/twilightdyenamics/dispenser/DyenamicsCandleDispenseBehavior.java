@@ -123,28 +123,40 @@ public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavio
 	private static void makeFloorSkull(Level level, BlockPos pos, Block newBlock, Item candle) {
 		ResolvableProfile profile = null;
 		if (level.getBlockEntity(pos) instanceof SkullBlockEntity skull) profile = skull.getOwnerProfile();
+		String colorString=DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getSerializedName();
+		DyenamicsAbstractSkullCandleBlock.GlowingColors glowColor=switch(colorString){
+			case "cherenkov" -> DyenamicsAbstractSkullCandleBlock.GlowingColors.CHERENKOV;
+			case "fluorescent" -> DyenamicsAbstractSkullCandleBlock.GlowingColors.FLUORESCENT;
+			default -> DyenamicsAbstractSkullCandleBlock.GlowingColors.NONE;
+		};
 		level.setBlockAndUpdate(pos, newBlock.defaultBlockState()
 			.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE)
-			.setValue(DyenamicsSkullCandleBlock.ROTATION, level.getBlockState(pos).getValue(SkullBlock.ROTATION)));
+			.setValue(DyenamicsSkullCandleBlock.ROTATION, level.getBlockState(pos).getValue(SkullBlock.ROTATION)).setValue(DyenamicsAbstractSkullCandleBlock.GLOWCOLOR,glowColor));
 		level.setBlockEntity(new DyenamicsSkullCandleBlockEntity(pos,
 			newBlock.defaultBlockState()
 				.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE)
-				.setValue(DyenamicsSkullCandleBlock.ROTATION, level.getBlockState(pos).getValue(SkullBlock.ROTATION)),
-				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getSerializedName()));
+				.setValue(DyenamicsSkullCandleBlock.ROTATION, level.getBlockState(pos).getValue(SkullBlock.ROTATION)).setValue(DyenamicsAbstractSkullCandleBlock.GLOWCOLOR,glowColor),
+				colorString));
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) sc.setOwner(profile);
 	}
 
 	private static void makeWallSkull(Level level, BlockPos pos, Block newBlock, Item candle) {
 		ResolvableProfile profile = null;
 		if (level.getBlockEntity(pos) instanceof SkullBlockEntity skull) profile = skull.getOwnerProfile();
+		String colorString=DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getSerializedName();
+		DyenamicsAbstractSkullCandleBlock.GlowingColors glowColor=switch(colorString){
+			case "cherenkov" -> DyenamicsAbstractSkullCandleBlock.GlowingColors.CHERENKOV;
+			case "fluorescent" -> DyenamicsAbstractSkullCandleBlock.GlowingColors.FLUORESCENT;
+			default -> DyenamicsAbstractSkullCandleBlock.GlowingColors.NONE;
+		};
 		level.setBlockAndUpdate(pos, newBlock.defaultBlockState()
 			.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE)
-			.setValue(DyenamicsWallSkullCandleBlock.FACING, level.getBlockState(pos).getValue(WallSkullBlock.FACING)));
+			.setValue(DyenamicsWallSkullCandleBlock.FACING, level.getBlockState(pos).getValue(WallSkullBlock.FACING)).setValue(DyenamicsAbstractSkullCandleBlock.GLOWCOLOR,glowColor));
 		level.setBlockEntity(new DyenamicsSkullCandleBlockEntity(pos,
 			newBlock.defaultBlockState()
 				.setValue(DyenamicsAbstractSkullCandleBlock.LIGHTING, LightableBlock.Lighting.NONE)
-				.setValue(DyenamicsWallSkullCandleBlock.FACING, level.getBlockState(pos).getValue(WallSkullBlock.FACING)),
-				DyenamicsAbstractSkullCandleBlock.candleToCandleColor(candle).getSerializedName()));
+				.setValue(DyenamicsWallSkullCandleBlock.FACING, level.getBlockState(pos).getValue(WallSkullBlock.FACING)).setValue(DyenamicsAbstractSkullCandleBlock.GLOWCOLOR,glowColor),
+				colorString));
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) sc.setOwner(profile);
 	}
 }
