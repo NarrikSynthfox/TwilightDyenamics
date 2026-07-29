@@ -4,10 +4,7 @@ package com.narsyn.twilightdyenamics.events;
 
 import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
 import com.narsyn.twilightdyenamics.block.DyenamicsAbstractSkullCandleBlock;
-import com.narsyn.twilightdyenamics.block.DyenamicsSkullCandleBlock;
-import com.narsyn.twilightdyenamics.entity.DyenamicsSkullCandleBlockEntity;
-import cy.jdkdigital.dyenamics.core.init.BlockInit;
-import cy.jdkdigital.dyenamics.core.util.DyenamicDyeColor;
+import com.narsyn.twilightdyenamics.block.entity.DyenamicsSkullCandleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;

@@ -1,4 +1,4 @@
-package com.narsyn.twilightdyenamics.entity;
+package com.narsyn.twilightdyenamics.block.entity;
 
 import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
 import net.minecraft.core.BlockPos;

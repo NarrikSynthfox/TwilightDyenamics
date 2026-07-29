@@ -1,4 +1,4 @@
-package com.narsyn.twilightdyenamics.entity;
+package com.narsyn.twilightdyenamics.block.entity;
 
 //Copied from SkullCandleBlockEntity from Twilight Forest, tweaked for Dyenamics candles support.
 

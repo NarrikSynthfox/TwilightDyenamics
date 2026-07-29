@@ -2,7 +2,7 @@ package com.narsyn.twilightdyenamics.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.narsyn.twilightdyenamics.entity.DyenamicsOminousCandleBlockEntity;
+import com.narsyn.twilightdyenamics.block.entity.DyenamicsOminousCandleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Player;

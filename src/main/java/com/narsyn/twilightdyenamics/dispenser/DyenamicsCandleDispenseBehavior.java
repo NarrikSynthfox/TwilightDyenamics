@@ -6,7 +6,7 @@ import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
 import com.narsyn.twilightdyenamics.block.DyenamicsAbstractSkullCandleBlock;
 import com.narsyn.twilightdyenamics.block.DyenamicsSkullCandleBlock;
 import com.narsyn.twilightdyenamics.block.DyenamicsWallSkullCandleBlock;
-import com.narsyn.twilightdyenamics.entity.DyenamicsSkullCandleBlockEntity;
+import com.narsyn.twilightdyenamics.block.entity.DyenamicsSkullCandleBlockEntity;
 import cy.jdkdigital.dyenamics.core.util.DyenamicDyeColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
@@ -113,7 +113,6 @@ public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavio
 			}
 			return true;
 		}
-
 		return false;
 	}
 

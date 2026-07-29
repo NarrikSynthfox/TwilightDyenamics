@@ -4,7 +4,7 @@ package com.narsyn.twilightdyenamics.block;
 
 import com.narsyn.twilightdyenamics.TwilightDyenamicsMain;
 import com.narsyn.twilightdyenamics.components.DyenamicsSkullCandles;
-import com.narsyn.twilightdyenamics.entity.DyenamicsSkullCandleBlockEntity;
+import com.narsyn.twilightdyenamics.block.entity.DyenamicsSkullCandleBlockEntity;
 import cy.jdkdigital.dyenamics.core.init.BlockInit;
 import cy.jdkdigital.dyenamics.core.util.DyenamicDyeColor;
 import net.minecraft.core.BlockPos;

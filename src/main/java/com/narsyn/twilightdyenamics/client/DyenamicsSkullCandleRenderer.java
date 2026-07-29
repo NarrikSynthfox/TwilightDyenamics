@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.narsyn.twilightdyenamics.block.DyenamicsAbstractSkullCandleBlock;
 import com.narsyn.twilightdyenamics.block.DyenamicsSkullCandleBlock;
 import com.narsyn.twilightdyenamics.block.DyenamicsWallSkullCandleBlock;
-import com.narsyn.twilightdyenamics.entity.DyenamicsSkullCandleBlockEntity;
+import com.narsyn.twilightdyenamics.block.entity.DyenamicsSkullCandleBlockEntity;
 import cy.jdkdigital.dyenamics.core.util.DyenamicDyeColor;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
