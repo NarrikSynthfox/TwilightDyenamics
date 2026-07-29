@@ -80,7 +80,7 @@ public class DyenamicsSkullCandleBlockEntity extends SkullBlockEntity {
 
 	public void setCandleColor(String colorString) {
 		try{
-			DyenamicDyeColor color = DyenamicDyeColor.valueOf(this.candleColor.toUpperCase(Locale.ROOT));
+			DyenamicDyeColor color = DyenamicDyeColor.valueOf(colorString.toUpperCase(Locale.ROOT));
 			this.candleColor = color.getId() < 16 ? "peach": colorString;
 		}catch(IllegalArgumentException e){
 			this.candleColor = "peach";
