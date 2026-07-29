@@ -107,6 +107,10 @@ public class DyenamicsCandleDispenseBehavior extends OptionalDispenseItemBehavio
 					if (wall) makeWallSkull(level, pos, TwilightDyenamicsMain.CREEPER_WALL_SKULL_CANDLE.get(), candle);
 					else makeFloorSkull(level, pos, TwilightDyenamicsMain.CREEPER_SKULL_CANDLE.get(), candle);
 				}
+				case PIGLIN -> {
+					if (wall) makeWallSkull(level, pos, TwilightDyenamicsMain.PIGLIN_WALL_SKULL_CANDLE.get(), candle);
+					else makeFloorSkull(level, pos, TwilightDyenamicsMain.PIGLIN_SKULL_CANDLE.get(), candle);
+				}
 				default -> {
 					return false;
 				}
