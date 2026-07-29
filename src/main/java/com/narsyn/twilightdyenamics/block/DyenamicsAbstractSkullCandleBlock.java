@@ -157,7 +157,6 @@ public abstract class DyenamicsAbstractSkullCandleBlock extends BaseEntityBlock 
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
 		ItemStack newStack = new ItemStack(this);
-		TwilightDyenamicsMain.LOGGER.info("ItemStack is "+newStack);
 		if (level.getBlockEntity(pos) instanceof DyenamicsSkullCandleBlockEntity sc) {
 			newStack.set(TwilightDyenamicsMain.SKULL_CANDLES, new DyenamicsSkullCandles(sc.getCandleColor(), state.getValue(CANDLES),getColorOrdinal(sc.getCandleColor())));
 

@@ -177,6 +177,6 @@ public class TwilightDyenamicsMain {
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("HELLO from server starting");
+
     }
 }
